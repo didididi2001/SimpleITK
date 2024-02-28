@@ -1,4 +1,4 @@
-name: Batch Build and Test
+name: Upload-artfact.yml
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
           mkdir -p ${{ github.workspace }}/bld
           echo hello > ${{ github.workspace }}/bld/world.txt
           echo hello1 > ${{ github.workspace }}/bld/world1.txt
-          tar -cvf a.tar.gz /${{ github.workspace }}/bld/*
+          tar -cvf a.tar.gz ${{ github.workspace }}/bld/*
       - uses: actions/upload-artifact@v4
         with:
           name: a
