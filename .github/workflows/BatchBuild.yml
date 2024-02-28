@@ -112,3 +112,11 @@ jobs:
           cmake --version
           ninja --version
           ctest -S ${CTEST_SOURCE_DIRECTORY}/.github/workflows/github_actions.cmake -V -j 2
+      - name: "tar"
+        shell: bash
+        run: |
+          tar -cvf a.tar.gz ${{ github.workspace }}/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: output
+          path: a.tar.gz
