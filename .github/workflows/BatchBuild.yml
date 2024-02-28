@@ -116,8 +116,14 @@ jobs:
         shell: bash
         run: |
           ls
-          tar -cvf a.tar.gz ${{ github.workspace }}/*
+          tar -cvf a.tar.gz ./*
       - uses: actions/upload-artifact@v4
         with:
           name: output
           path: a.tar.gz
+      - name: "save cache"
+        id: cache-primes-save
+        uses: actions/cache/save@v4
+        with:
+          path: ./
+          key: ${{ runner.os }}-primes
