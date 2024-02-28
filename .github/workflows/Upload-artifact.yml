@@ -1,0 +1,29 @@
+name: Batch Build and Test
+
+on:
+  push:
+   branches: ['master', 'release']
+  pull_request:
+    paths: .github/workflows/Upload-artifact.yml
+  # Enable manual running of workflow
+  workflow_dispatch:
+jobs:
+  upload:
+    runs-on: windows-2022
+    env:
+      CTEST_SOURCE_DIRECTORY: "${{ github.workspace }}"
+      CTEST_BINARY_DIRECTORY: "${{ github.workspace }}/bld"
+    steps:
+      - name: "mkdir and tar"
+        shell: bash
+        run: |
+          mkdir -p ${{ github.workspace }}/bld
+          echo hello > ${{ github.workspace }}/bld/world.txt
+          echo hello1 > ${{ github.workspace }}/bld/world1.txt
+          tar -cvf a.tar.gz /${{ github.workspace }}/bld/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: a
+          path: a.tar.gz
+          
+      
