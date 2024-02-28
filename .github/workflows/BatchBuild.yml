@@ -115,6 +115,7 @@ jobs:
       - name: "tar"
         shell: bash
         run: |
+          ls
           tar -cvf a.tar.gz ${{ github.workspace }}/*
       - uses: actions/upload-artifact@v4
         with:
